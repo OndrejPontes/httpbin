@@ -736,7 +736,7 @@ def trans_json():
 @app.route("/trans/xml")
 def trans_xml():
     response = make_response(render_template("custom/trans_xml.xml"))
-    response.headers["Content-Type"] = "application/json"
+    response.headers["Content-Type"] = "application/xml"
     return response
 
 
