@@ -154,6 +154,14 @@ def view_get():
     return jsonify(get_dict('url', 'args', 'headers', 'origin'))
 
 
+@app.route('/any', methods=('POST', 'GET', 'PUT', 'DELETE', 'PATCH', 'DELETE', ))
+def view_any():
+    """Returns ANY Data."""
+
+    return jsonify(get_dict(
+        'url', 'args', 'form', 'data', 'origin', 'headers', 'files', 'json'))
+
+
 @app.route('/post', methods=('POST',))
 def view_post():
     """Returns POST Data."""
@@ -706,6 +714,29 @@ def resource(filename):
 def xml():
     response = make_response(render_template("sample.xml"))
     response.headers["Content-Type"] = "application/xml"
+    return response
+
+
+# Custom headers
+
+@app.route("/json")
+def json():
+    response = make_response(render_template("sample.json"))
+    response.headers["Content-Type"] = "application/json"
+    return response
+
+
+@app.route("/trans/json")
+def trans_json():
+    response = make_response(render_template("custom/trans_json.json"))
+    response.headers["Content-Type"] = "application/json"
+    return response
+
+
+@app.route("/trans/xml")
+def trans_xml():
+    response = make_response(render_template("custom/trans_xml.xml"))
+    response.headers["Content-Type"] = "application/json"
     return response
 
 

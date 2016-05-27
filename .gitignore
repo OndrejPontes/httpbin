@@ -1,9 +1,12 @@
 env/
 build/
 dist/
+.idea/
 .workon
 .epio-app
 *.pyc
 .tox
 *.egg-info
 *.swp
+*.iml
+

@@ -55,6 +55,10 @@ Endpoint                                 Description
 `/forms/post`_                           HTML form that submits to */post*
 `/xml`_                                  Returns some XML
 `/encoding/utf8`_                        Returns page containing UTF-8 data.
+`/trans/xml`_                            Custom Transformation xml response
+`/trans/json`_                           Custom Transformation json response
+`/json`_                                 Custom Json endpoint
+`/any`_                                  Custom endpoint to accept any request method
 ======================================   ==================================================================================================================
 
 .. _/user-agent: http://httpbin.org/user-agent

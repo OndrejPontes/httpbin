@@ -1,0 +1,9 @@
+{
+  "name": "Lukas",
+  "id": 121585,
+  "super_arr": [1,2,3],
+  "flag": false,
+  "object": {
+    "status": "OK"
+  }
+}
