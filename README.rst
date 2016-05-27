@@ -191,7 +191,7 @@ For example, using Gunicorn:
 
 .. code:: bash
 
-    $ pip install httpbin
+    $ pip install --upgrade git+https://github.com/wermington/httpbin.git
     $ gunicorn httpbin:app
 
 Or run it directly:
