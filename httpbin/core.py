@@ -26,7 +26,6 @@ from .helpers import get_headers, status_code, get_dict, get_request_range, chec
     secure_cookie, H, ROBOT_TXT, ANGRY_ASCII
 from .utils import weighted_choice
 from .structures import CaseInsensitiveDict
-from collections import defaultdict
 
 ENV_COOKIES = (
     '_gauges_unique',
@@ -39,7 +38,7 @@ ENV_COOKIES = (
     '__utmb'
 )
 
-store = defaultdict(list)
+store = {}
 
 
 def jsonify(*args, **kwargs):
@@ -729,11 +728,15 @@ def put_data_into_store(key):
     if key == '':
         return status_code(406)
 
-    data = jsonify(get_dict(
+    special_json = json.dumps(get_dict(
         'url', 'args', 'form', 'data', 'origin', 'headers', 'files', 'json'))
-    store[key].append(data)
 
-    return data
+    if key in store:
+        store[key].append(special_json)
+    else:
+        store[key] = [special_json]
+
+    return special_json
 
 
 @app.route('/store/<string:key>', methods=('GET', ))
@@ -742,10 +745,8 @@ def get_data_into_store(key):
 
     if key not in store:
         return status_code(404)
-    print(''.join(store[key]))
 
-    # return Response(''.join(store[key]), headers={'Content-Type': 'application/json'})
-    return status_code(200)
+    return json.dumps(store[key])
 
 
 @app.route('/store/<string:key>', methods=('DELETE', ))
@@ -770,7 +771,7 @@ def xml():
 # Custom headers
 
 @app.route("/json")
-def json():
+def json_endpoint():
     response = make_response(render_template("sample.json"))
     response.headers["Content-Type"] = "application/json"
     return response
